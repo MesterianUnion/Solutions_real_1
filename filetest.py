@@ -1,12 +1,20 @@
-mydata = ["Pedro 7\n" "Egern 1\n" "Fine 2.\n"]
-myfile = "data/fil1.txt"
+mydata = ["Pedro 7\n" "Egern 1\n" "Fine 2\n"]
+myfile = "data/bttx.txt"
 
-string = "Pedro 7"
-string1 = "Egern 1"
-string2 = "Fine 2"
+with open(myfile, "w") as file:
+    file.writelines(mydata)
 
-print(string)
+with open(myfile) as file:
+    lines = file.readlines()
+line_number = 0
+for line in lines:
+    line_number += 1
+    print(f"Line {line_number}: {line.strip()}")
+print()
 
-print(string1)
-
-print(string2)
+line_number = 0
+with open(myfile) as file:
+    for line in file:
+        line_number += 1
+        print(f"line {line_number}: {line.strip()}")
+    print()
