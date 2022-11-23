@@ -1,4 +1,4 @@
-num = int(input("Indskriv numre i  rows:"))
+num = int(input("Indskriv numre i rows:"))
 for i in range(1,num+1):
         for j in range(1,num-i+1):
           print(" ",end=" ")
