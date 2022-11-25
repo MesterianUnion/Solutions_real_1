@@ -1,42 +1,60 @@
-def sleep():
-    status["sleepiness"] -= 100
-    status["thirsty"] += 50
-    status["hunger"] += 33
-
-
-def eat():
-    status["hunger"] -= 33.5
-    status["thirsty"] -= 28
+def sleep(): #sleepiness-=10, thirst+=1,  hunger+=1,  whisky+=0, gold+=0
+    status["sleepiness"] -= 10
     status["thirsty"] += 1
+    status["hunger"] += 1
+    status["whisky"] += 0
+    status["Gold"] += 0
 
 
-def mine():
-    status["sleepiness"] += 25
+def eat(): #sleepiness+=5,  thirst-=5,  hunger-=20, whisky+=0, gold-=2
+    status["sleepiness"] += 5
+    status["thirsty"] -= 5
+    status["hunger"] -= 20
+    status["whisky"] += 0
+    status["Gold"] -= 2
+
+
+
+def mine(): #sleepiness+=5,  thirst+=5,  hunger+=5,  whisky+=0, gold+=5
+    status["sleepiness"] += 5
     status["thirsty"] += 5
-    status["hunger"] += 50
-    status["whisky"] -= 0
-    status["Gold"] += 4
-    status["whisky"] -= 5
+    status["hunger"] += 5
+    status["whisky"] += 0
+    status["Gold"] += 5
 
 
-def buy_whisky():
-    status["whisky"] += 5
-    status["sleepiness"] += 75
-    status["hunger"] -= 16
-    status["thirsty"] -= 1
+def buy_whisky(): #sleepiness+=5,  thirst+=1,  hunger+=1,  whisky+=1, gold-=1
+    status["sleepiness"] += 5
+    status["thirsty"] += 1
+    status["hunger"] += 1
+    status["whisky"] += 1
+    status["Gold"] -= 1
 
+
+def drink(): #sleepiness+=5,  thirst-=15, hunger-=1,  whisky-=1, gold+=0
+    status["sleepiness"] += 5
+    status["thirsty"] -= 15
+    status["hunger"] -= 1
+    status["whisky"] -= 1
+    status["Gold"] += 0
 
 def dead():
     return status["sleepiness"] > 100 or status["thirsty"] > 100 or status["hunger"] > 100
 
 
-status = {"turn": 0, "sleepiness": 0, "thirsty": 0, "hunger": 0, "whisky": 10, "Gold": 0}
+status = {"turn": 0, "sleepiness": 0, "thirsty": 0, "hunger": 0, "whisky": 0, "Gold": 0}
 
 while not dead() and status["turn"] < 1000:
     status["turn"] += 1
-    sleep()
-    eat()
-    mine()
-    buy_whisky()
-    eat()
+    if status["sleepiness"] >= 90:
+        sleep()
+    elif status["hunger"] >= 85:
+        eat()
+    elif status["thirsty"] >= 85 and not status["whisky"] >= 1:
+        buy_whisky()
+    elif status["thirsty"] >= 80 and status["whisky"] >= 1:
+        drink()
+    else:
+        mine()
     print(status)
+
