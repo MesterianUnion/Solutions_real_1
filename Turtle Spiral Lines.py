@@ -60,7 +60,7 @@ def demo():
         troels.forward(265)
         troels.left(90)
         troels.forward(265)
-        troels.left(90)        #Mesterian Union
+        troels.left(90)
         troels.forward(230)
         troels.left(90)
         troels.forward(230)

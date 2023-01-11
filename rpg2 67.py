@@ -59,6 +59,9 @@ class Karakter:
     def get_healing(self, healing_styrke):
         self.HP += healing_styrke
 
+    def dead(self):
+        return self.HP < 1
+
 
 class Healer(Karakter):
 
@@ -66,15 +69,44 @@ class Healer(Karakter):
         super().__init__(navn, helbred, 0)
         self.healing_styrke = healing_styrke
 
+    def heal(self, andre):
+        print("\n", self.navn, "heals", andre.navn, "for", self.healing_styrke, "skade", "\n")
+        andre.get_healing(self.healing_styrke)
 
 
-per1 = Karakter("Hørsholm Kommune", 97, 7)
-per2 = Karakter("Rudersdal Kommune", 101, 25)
+
+def runde(per1, per2):
+    per2.slag(per1)
+    per1.slag(per2)
+    return per1.dead() or per2.dead()
+
+
+def fight(per1, per2, runder):
+    for i in range(runder):
+        is_dead = runde(per1, per2)
+        if is_dead:
+            print(f"Nogen er død efter {i} Runder")
+            break
+
+per1 = Karakter("Hørsholm Kommune", 260, 17)
+per2 = Karakter("Rudersdal Kommune", 5612, 25)
 per3 = Healer("Doctor Toilet Brush", 99, 8)
-print(per1)
-print(per2)
-print(per3)
-per2.slag(per1)
-print(per2)
-per3.heal(per2)
-print(per2)
+fight(per1, per2, 100)
+# print(per1)
+# print(per2)
+# print(per3)
+# per2.slag(per1)
+# print(per2)
+# per3.heal(per2)
+# print(per2)
+
+class Hunter:
+
+    def __init__(self, navn, helbred, healing_styrke):
+        super().__init__(navn, helbred, 0)
+        self.healing_styrke = healing_styrke
+
+    # def dead(self, andre):
+        # return HP < 1
+
+# class IDK:
