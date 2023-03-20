@@ -81,7 +81,7 @@ def homo_sex(far_h, far_h1):
 
 
 def outcome_pige(far, mor):
-    if far.sex == "dreeng" and mor.sex == "pige":  # <- Ret venligt fejlen, som der står i fejlkoden. Kig på (far.sex == "dreeng")
+    if far.sex == "dreng" and mor.sex == "pige":  # <- Ret venligt fejlen, som der står i fejlkoden. Kig på (far.sex == "dreeng")
         return Hund("Hvalp", 0, "pige")  # - Fjern det bogstav, som pilen pejer på ->                                        ↑
     else:  # Hvis du stadig ikke ved, hvad du skal fjerne. Så skal du fjerne et (e) fra (far.sex == <"dreeng">). Så det ser sådan ud: (far.sex == "dreng")
         return f"Fejl-kode-616 \nTjek venligst om din funktion: def outcome_pige(far, mor): \nOg tjek om Køn FX. far.sex == dreng, \neller Def: Er skrivet rigtigt"
