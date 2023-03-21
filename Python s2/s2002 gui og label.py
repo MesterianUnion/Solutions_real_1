@@ -4,7 +4,7 @@ root = tk.Tk()
 root.title('Runde-hjørne er bedst')
 root.geometry("1000x600")
 
-knap1 = tk.Button(root, text="Jeg er en firkantet knap")
+knap1 = tk.Button(root, text="Jeg er en firkantet knap", bg="blue", activebackground="red")
 knap1.grid(row=0, column=1)
 knap2 = tk.Button(root, text="Knap 2")
 knap2.grid(row=1, column=1)
