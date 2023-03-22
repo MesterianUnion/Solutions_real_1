@@ -1,5 +1,4 @@
 # from tkinter import *
-from tkinter import *
 import tkinter as tk
 
 root = tk.Tk()
@@ -43,13 +42,13 @@ class RoundedButton(tk.Canvas):
         if self.command is not None:
             self.command()
 
-def test():
+def test111():
     print("Hello")
 
 canvas = tk.Canvas(root, height=300, width=500)
 canvas.pack()
 
-button = RoundedButton(root, 200, 100, 50, 2, 'red', 'white', command=test)
+button = RoundedButton(root, 200, 100, 50, 2, 'red', 'white', command=test111)
 button.place(relx=.1, rely=.1)
 
 root.mainloop()
