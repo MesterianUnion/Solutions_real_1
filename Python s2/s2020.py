@@ -7,7 +7,7 @@ root = tk.Tk()
 root.title('S2008 GUI')
 root.geometry("500x500")
 
-Ramme_grid = tk.LabelFrame(root, text="Main Area")
+Ramme_grid = tk.LabelFrame(root, text="Hej")
 Ramme_grid.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)
 
 Ramme = tk.Frame(Ramme_grid)
