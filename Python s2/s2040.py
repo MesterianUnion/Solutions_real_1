@@ -11,11 +11,6 @@ oddrow = "#CCCCCC"
 evenrow = "#DDDDDD"
 
 
-def clean():
-    print("🏴󠁭󠁵󠁰󠁷󠁿 Du rentgjorde teksten")
-    entry.delete(0, tk.END)
-
-
 def get():
     print(entry.get())
     print(entry2.get())
@@ -40,8 +35,8 @@ def edit_record(event, tree):
     entry.insert(1, values[0])
     entry2.delete(0, tk.END)
     entry2.insert(0, values[1])
-    entry4.delete(0, tk.END)
-    entry4.insert(0, values[2])
+    entry3.delete(0, tk.END)
+    entry3.insert(0, values[2])
 
 
 data_list = []
@@ -148,7 +143,6 @@ knap3.grid(row=2, column=3, pady=10, padx=10)
 
 knap4 = tk.Button(krc, text="   Slet alt   ", command=clean)
 knap4.grid(row=2, column=4, pady=10,  padx=10)
-
 
 
 if __name__ == '__main__':
