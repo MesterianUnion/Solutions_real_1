@@ -5,11 +5,24 @@ from tkinter import ttk
 def clean():
     print("🏴󠁭󠁵󠁰󠁷󠁿 Du rentgjorde teksten")
     entry.delete(0, tk.END)
+    print(entry.get())
 
 
 def read_data(tree):
+    count = 0
     for record in data_list:
-        tree.insert(parent='', index='end', text='', values=record)
+        if count % 2 == 0:
+            tree.insert(parent='', index='end', text='', values=record, tags=('evenrow',))
+        else:
+            tree.insert(parent='', index='end', text='', values=record, tags=('oddrow',))
+        count += 1
+
+
+def edit_record(event, tree):
+    index_selected = tree.focus()
+    values = tree.item(index_selected, 'values')
+    entry.delete(0, tk.END)
+    entry.insert(0, values[0])
 
 
 padx = 8
@@ -18,6 +31,8 @@ rowhi = 24
 tree_backgroundcolor = "#eeeeee"
 tree_color = "black"
 tree_select = "#773333"
+oddrow = "#ddeedd"
+evenrow = "#cce0cc"
 
 
 data_list = []
@@ -74,6 +89,11 @@ tree1.heading("#0", text="", anchor=tk.W)
 tree1.heading("col1", text="Countries", anchor=tk.CENTER)
 tree1.heading("col2", text="Allies", anchor=tk.CENTER)
 tree1.heading("col3", text="Enemies", anchor=tk.CENTER)
+
+tree1.bind("<ButtonRelease-1>", lambda event: edit_record(event, tree1))
+
+tree1.tag_configure('oddrow', background=oddrow)
+tree1.tag_configure('evenrow', background=evenrow)
 
 read_data(tree1)
 
