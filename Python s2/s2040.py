@@ -44,7 +44,7 @@ data_list.append(("1", "1000", "Oslo"))
 data_list.append(("2", "2000", "Chicago"))
 data_list.append(("3", "3000", "Milano"))
 data_list.append(("4", "4000", "Amsterdam"))
-data_list.append(('5', "25000", "Lorte Korsør"))
+data_list.append(('5', "25000", "Korsør"))
 
 root = tk.Tk()
 root.title('S2008 GUI')

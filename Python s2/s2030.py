@@ -95,11 +95,11 @@ knap.grid(row=2, column=1, pady=10, padx=10)
 
 
 def update():
-    print("🚩 Du opdateret programmet")
-    os.system(("python s2026.py"))
+    print("🚩 Du åbnede en ny version")
+    os.system(("python s2040.py"))
 
 
-knap2 = tk.Button(krc, text="Opdater", command=update)
+knap2 = tk.Button(krc, text="Opdater liste", command=update)
 knap2.grid(row=2, column=2, pady=10, padx=10)
 
 knap3 = tk.Button(krc, text="   Slet   ")
