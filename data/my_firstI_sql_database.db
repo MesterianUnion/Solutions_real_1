@@ -1,0 +1,22 @@
+SQLite format 3   @                                                                     .WJ
+   � �                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     {�MtablepersonspersonsCREATE TABLE persons (
+	id INTEGER NOT NULL,
+	name VARCHAR,
+	age INTEGER,
+	PRIMARY KEY (id)
+)
+   D ����������sg[PD
+ harry	 jane
+ susan
+
+ peter
+ harry	 jane
+
+ susan
+	 peter
+ harry	 jane
+ susan
+ peter
+ harry	 jane
+ susan
+ peter
