@@ -8,7 +8,7 @@ def move_window(event):  # Moving the window
     root.geometry(f'+{event.x_root}+{event.y_root}')
 
 
-def round_rectangle(x1, y1, x2, y2, radius=10, **kwargs):  # Creating a rounded rectangle
+def round_rectangle(x1, y1, x2, y2, radius=15, **kwargs):  # Creating a rounded rectangle
 
     points = [x1 + radius, y1,
               x1 + radius, y1,
@@ -52,9 +52,10 @@ round_rectangle(0, 0, 300, 200, radius=40)
 def clock():
     hour = time.strftime("%H")
     minute = time.strftime("%M")
+    second = time.strftime("%S")
     day = time.strftime("%A")
 
-    my_label.config(text=hour + ":" + minute)
+    my_label.config(text=hour + ":" + minute + ";" + second)
     my_label.after(1000, clock)
 
     my_label2.config(text=day)
