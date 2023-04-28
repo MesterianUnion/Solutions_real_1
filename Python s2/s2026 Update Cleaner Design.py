@@ -78,6 +78,7 @@ tree1.heading("col1", text="Countries", anchor=tk.CENTER)
 tree1.heading("col2", text="Allies", anchor=tk.CENTER)
 tree1.heading("col3", text="Enemies", anchor=tk.CENTER)
 
+
 tree1.bind("<ButtonRelease-1>", lambda event: edit_record(tree1))
 
 tree1.tag_configure('oddrow', background=oddrow)

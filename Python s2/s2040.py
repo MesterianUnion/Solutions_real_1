@@ -31,12 +31,16 @@ def read_data(tree):
 def edit_record(event, tree):
     index_selected = tree.focus()
     values = tree.item(index_selected, 'values')
+    print(entry.get())
     entry.delete(0, tk.END)
     entry.insert(1, values[0])
+    print(entry2.get())
     entry2.delete(0, tk.END)
     entry2.insert(0, values[1])
+    print(entry3.get())
     entry3.delete(0, tk.END)
     entry3.insert(0, values[2])
+    print(entry4.get())
 
 
 data_list = []
