@@ -5,8 +5,6 @@ from topbike_data import Hold, Bane, Bookings, Base
 
 from sqlalchemy.engine import Engine
 from sqlalchemy import event
-
-
 @event.listens_for(Engine, "connect")
 def set_sqlite_pragma(dbapi_connection, connection_record):
     cursor = dbapi_connection.cursor()
@@ -14,7 +12,7 @@ def set_sqlite_pragma(dbapi_connection, connection_record):
     cursor.close()
 
 
-Database = 'sqlite:///topbike.db'
+Database = 'sqlite:///topbikef.db'
 
 
 def create_test_data():
@@ -24,8 +22,10 @@ def create_test_data():
         new_items.append(Hold(erfaring=1, storelse=6))
         new_items.append(Bane(kapacitet=12, sverhedsgrad=2))
         new_items.append(Bane(kapacitet=26, sverhedsgrad=1))
-        new_items.append(Bookings(Dato="27.6.2023", hold_id=1, bane_id=2))
-        new_items.append(Bookings(Dato="1.1.2024", hold_id=2, bane_id=1))
+        a_date = date(day=10, month=12, year=2022)
+        new_items.append(Bookings(Dato=a_date, hold_id=1, bane_id=2))
+        a_date = date(day=30, month=4, year=2023)
+        new_items.append(Bookings(Dato=a_date, hold_id=2, bane_id=1))
         session.add_all(new_items)
         session.commit()
 
@@ -94,13 +94,13 @@ def soft_delete_bane(bane):
 
 
 #Bookings
-def update_booking(booking):
+def update_bookings(booking):
     with Session(engine) as session:
         session.execute(update(Bookings).where(Bookings.id == booking.id).values(dato=booking.dato, hold_id=booking.hold_id, bane_id=booking.bane.id))
         session.commit()
 
 
-def hard_delete_booking(booking):
+def hard_delete_bookings(booking):
     with Session(engine) as session:
         session.execute(delete(Bookings).where(Bookings.id == booking.id))
         session.commit()

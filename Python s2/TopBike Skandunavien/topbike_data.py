@@ -63,7 +63,7 @@ class Bane(Base):
 class Bookings(Base):
     __tablename__ = "bookings"
     id = Column(Integer, primary_key=True)
-    dato = Column(String)
+    dato = Column(Date)
     hold_id = Column(Integer, ForeignKey("hold.id"), nullable=False)
     bane_id = Column(Integer, ForeignKey("bane.id"), nullable=False)
 
@@ -82,5 +82,16 @@ class Bookings(Base):
 
     @staticmethod
     def convert_from_tuple(tuple_):
-        bookings = Bookings(id=tuple_[0], dato=tuple_[1], hold_id=tuple_[2], bane_id=tuple_[3])
-        return bookings
+        try:
+            if tuple_[0] != '':
+                id_ = int(tuple_[0])
+            else:
+                id_ = 0
+            dato = parser.parse(tuple_[1])
+            hold_id = int(tuple_[2])
+            bane_id = int(tuple_[3])
+
+            booking = Bookings(id=id_, dato=dato, hold_id=hold_id, bane_id=bane_id)
+            return booking
+        except:
+            print("Entries kunne ikke blive konvateret til booking")
