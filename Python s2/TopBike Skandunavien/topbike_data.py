@@ -34,7 +34,7 @@ class Bane(Base):
     sverhedsgrad = Column(Integer)
 
     def __repr__(self):
-        return f"id:{self.id}    kapacitet{self.kapacitet}    sværhedsgrad{self.sverhedsgrad}"
+        return f"id: {self.id}    Kapacitet: {self.kapacitet}    Sværhedsgrad: {self.sverhedsgrad}"
 
     def convert_to_tuple(self):
         return self.id, self.kapacitet, self.sverhedsgrad
@@ -48,16 +48,8 @@ class Bane(Base):
 
     @staticmethod
     def convert_from_tuple(tuple_):
-        try:
-            if tuple_[0] != '':
-                id_ = int(tuple_[0])
-            else:
-                id_ = 0
-            kapacitet = int(tuple_[1])
-            sverhedsgrad = int(tuple_[2])
-            bane = Bane(id=id_, sverhedsgrad=sverhedsgrad, kapacitet=kapacitet)
-        except:
-            print("", "Entries kunne ikke blive konvateret til bane")
+        bane = Bane(id=tuple_[0], kapacitet=tuple_[1], sverhedsgrad=tuple_[2])
+        return bane
 
 
 class Bookings(Base):

@@ -22,10 +22,10 @@ def create_test_data():
         new_items.append(Hold(erfaring=1, storelse=6))
         new_items.append(Bane(kapacitet=12, sverhedsgrad=2))
         new_items.append(Bane(kapacitet=26, sverhedsgrad=1))
-        a_date = date(day=10, month=12, year=2022)
-        new_items.append(Bookings(Dato=a_date, hold_id=1, bane_id=2))
-        a_date = date(day=30, month=4, year=2023)
-        new_items.append(Bookings(Dato=a_date, hold_id=2, bane_id=1))
+        # a_date = date(day=10, month=12, year=2022)
+        # new_items.append(Bookings(Dato=a_date, hold_id=1, bane_id=2))
+        # a_date = date(day=30, month=4, year=2023)
+        # new_items.append(Bookings(Dato=a_date, hold_id=2, bane_id=1))
         session.add_all(new_items)
         session.commit()
 
@@ -54,12 +54,13 @@ def create_record_hold(record):
         try:
             session.commit()
         except:
-            print("Der var en fejl, mens du lavede en optagelse/record [Fejl = Linje 49]")
+            print("Der var en fejl, mens du lavede en optagelse/record [Fejl = topbike_sql.py - Linje 49]")
 
 
 def update_hold(hold):
     with Session(engine) as session:
         session.execute(update(Hold).where(Hold.id == hold.id).values(erfaring=hold.erfaring, storelse=hold.storelse))
+        session.commit()
 
 
 def soft_delete_hold(hold):

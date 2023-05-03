@@ -58,7 +58,7 @@ def update_hold(tree, record):
 
 def delete_hold(tree, record):
     hold = tpd.Hold.convert_from_tuple(record)
-    tpsql.update_hold(hold)
+    tpsql.soft_delete_hold(hold)
     clear_hold_entries()
     refresh_treeview(tree, tpd.Hold)
 
@@ -144,6 +144,7 @@ def create_bookings(tree, record):
     bookings = tpd.Bookings.convert_from_tuple(record)
     print(bookings)
     already_booked = tpf.capacity_available(tpsql.get_record(tpd.Bane, bookings.bane_id), bookings.dato, tpsql.get_record(tpd.Hold, bookings.hold_id))
+    print(already_booked)
     capacity_ok = True
     if not already_booked: # passes if true
         print("Allerede booked true")
@@ -177,7 +178,7 @@ def empty_treeview(tree):
 
 root = tk.Tk()
 root.title("Topbike Skandinavien")
-root.geometry("1600x800")
+root.geometry("1300x500")
 
 style = ttk.Style()
 style.theme_use("default")
@@ -189,7 +190,7 @@ frame_hold = tk.LabelFrame(root, text="Hold")
 frame_hold.grid(row=0, column=0, padx=padx, pady=pady, sticky=tk.N)
 
 tree_frame_hold = tk.Frame(frame_hold)
-tree_frame_hold.grid(row=0, column=1, padx=padx, pady=pady)
+tree_frame_hold.grid(row=0, column=0, padx=padx, pady=pady)
 # ---
 tree_scroll_hold = tk.Scrollbar(tree_frame_hold)
 tree_scroll_hold.grid(row=0, column=1, padx=padx, pady=pady)
@@ -206,20 +207,22 @@ tree_hold.heading("#0", text="", anchor=tk.W)
 tree_hold.heading("id", text="id", anchor=tk.CENTER)
 tree_hold.heading("erfaring", text="erfaring", anchor=tk.CENTER)
 tree_hold.heading("storelse", text="storelse", anchor=tk.CENTER)
+tree_hold.tag_configure('oddrow', background=oddrow)
+tree_hold.tag_configure('evenrow', background=evenrow)
 
 tree_hold.bind("<ButtonRelease-1>", lambda event: edit_hold(event, tree_hold))
 
 # Frames for hold
 controls_frame_hold = tk.Frame(frame_hold)
-controls_frame_hold.grid(row=0, column=0, padx=padx, pady=pady)
+controls_frame_hold.grid(row=1, column=0, padx=padx, pady=pady)
 
 # Frame for labels and entries
 edit_frame_hold = tk.Frame(controls_frame_hold)
-edit_frame_hold.grid(row=0, column=0, padx=padx, pady=pady)
+edit_frame_hold.grid(row=1, column=0, padx=padx, pady=pady)
 
 # Frame for buttons
 button_frame_hold = tk.Frame(controls_frame_hold)
-button_frame_hold.grid(row=1, column=0, padx=padx, pady=pady)
+button_frame_hold.grid(row=2, column=0, padx=padx, pady=pady)
 
 # Labels and Entries
 Label_hold_id = tk.Label(edit_frame_hold, text="Id")
@@ -248,17 +251,17 @@ button_delete_hold = tk.Button(button_frame_hold, text="Delete", command=lambda:
 button_delete_hold.grid(row=0, column=2, padx=padx, pady=pady)
 
 button_clear_entries_hold = tk.Button(button_frame_hold, text="Clear entries", command=clear_hold_entries)
-button_clear_entries_hold.grid(row=3, column=0, padx=padx, pady=padx)
+button_clear_entries_hold.grid(row=0, column=3, padx=padx, pady=padx)
 
 # hold slut region
 
 # Bane Start Region
 
 frame_bane = tk.LabelFrame(root, text="Bane")
-frame_bane.grid(row=1, column=0, padx=padx, pady=pady, sticky=tk.N)
+frame_bane.grid(row=0, column=2, padx=padx, pady=pady, sticky=tk.N)
 
 tree_frame_bane = tk.Frame(frame_bane)
-tree_frame_bane.grid(row=0, column=1, padx=padx, pady=pady)
+tree_frame_bane.grid(row=0, column=0, padx=padx, pady=pady)
 # ---
 tree_scroll_bane = tk.Scrollbar(tree_frame_bane)
 tree_scroll_bane.grid(row=0, column=1, padx=padx, pady=pady)
@@ -283,7 +286,7 @@ tree_bane.bind("<ButtonRelease-1>", lambda event: edit_bane(event, tree_bane))
 
 # Frames for frames
 controls_frame_bane = tk.Frame(frame_bane)
-controls_frame_bane.grid(row=0, column=0, padx=padx, pady=pady)
+controls_frame_bane.grid(row=11, column=0, padx=padx, pady=pady)
 
 # Frame for labels and entries
 edit_frame_bane = tk.Frame(controls_frame_bane)
@@ -322,7 +325,7 @@ button_clear_bane_entries.grid(row=0, column=4, padx=padx, pady=pady)
 
 # Bookings Start Region
 frame_bookings = tk.LabelFrame(root, text="Bookings")
-frame_bookings.grid(row=0, column=2, padx=padx, pady=pady, sticky=tk.N)
+frame_bookings.grid(row=0, column=3, padx=padx, pady=pady, sticky=tk.N)
 
 
 tree_frame_bookings = tk.Frame(frame_bookings)
@@ -343,8 +346,8 @@ tree_bookings.column("bane_id", anchor=tk.CENTER, width=100)
 tree_bookings.heading("#0", text="", anchor=tk.W)
 tree_bookings.heading("id", text="Id", anchor=tk.CENTER)
 tree_bookings.heading("dato", text="Date", anchor=tk.CENTER)
-tree_bookings.heading("hold_id", text="Team id", anchor=tk.CENTER)
-tree_bookings.heading("bane_id", text="Lane id", anchor=tk.CENTER)
+tree_bookings.heading("hold_id", text="Hold id", anchor=tk.CENTER)
+tree_bookings.heading("bane_id", text="Bane id", anchor=tk.CENTER)
 tree_bookings.tag_configure('oddrow', background=oddrow)
 tree_bookings.tag_configure('evenrow', background=evenrow)
 
