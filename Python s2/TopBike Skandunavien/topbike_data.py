@@ -6,7 +6,7 @@ from tkinter import messagebox
 Base = declarative_base()
 
 
-class Hold(Base):
+class Hold(Base): # Hold region klassen
     __tablename__ = "hold"
     id = Column(Integer, primary_key=True)
     erfaring = Column(Integer)
@@ -52,7 +52,7 @@ class Bane(Base):
         return bane
 
 
-class Bookings(Base):
+class Bookings(Base): # Bookings region klasse
     __tablename__ = "bookings"
     id = Column(Integer, primary_key=True)
     dato = Column(Date)
