@@ -27,7 +27,7 @@ class Hold(Base): # Hold region klassen
         return hold
 
 
-class Bane(Base):
+class Bane(Base): # Bane region klasse
     __tablename__ = "bane"
     id = Column(Integer, primary_key=True)
     kapacitet = Column(Integer)

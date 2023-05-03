@@ -17,7 +17,7 @@ def booked_bane(bane_id, date_):
     return length > 0
 # Booked bane
 
-def capacity_available(bane_id, date_, new_hold):
+def capacity_available(bane_id, date_, new_hold): # Kapacitet
     booked = booked_bane(bane_id, date_)
 
     return bane_id.kapacitet >= booked + new_hold.storelse

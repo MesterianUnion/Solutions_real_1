@@ -395,6 +395,7 @@ button_clear_bookings_entries = tk.Button(button_frame_bookings, text="Clear Ent
 button_clear_bookings_entries.grid(row=0, column=4, padx=padx, pady=pady)
 # Gui Design Slut
 
+#Maskine
 if __name__ == "__main__":
     refresh_treeview(tree_hold, tpd.Hold)
     refresh_treeview(tree_bane, tpd.Bane)
