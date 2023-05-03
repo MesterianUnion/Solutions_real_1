@@ -15,7 +15,7 @@ def booked_bane(bane_id, date_):
     print(length)
 
     return length > 0
-
+# Booked bane
 
 def capacity_available(bane_id, date_, new_hold):
     booked = booked_bane(bane_id, date_)

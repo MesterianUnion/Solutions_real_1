@@ -3,7 +3,6 @@ from tkinter import ttk
 import topbike_data as tpd
 import topbike_func as tpf
 import topbike_sql as tpsql
-from dateutil import parser
 
 padx = 8
 pady = 4
@@ -14,16 +13,17 @@ treeview_selected = "#68caf7"
 oddrow = "#dddddd"
 evenrow = "#cccccc"
 
+
 # Funktioner
 
 # hold function start region
 
 
-def read_hold_entries():  #  reads all hold entries
+def read_hold_entries():  # reads all hold entries
     return entry_hold_id.get(), entry_hold_erfaring.get(), entry_hold_storelse.get()
 
 
-def clear_hold_entries():  #  clear all hold entries
+def clear_hold_entries():  # clear all hold entries
     entry_hold_id.delete(0, tk.END)
     entry_hold_erfaring.delete(0, tk.END)
     entry_hold_storelse.delete(0, tk.END)
@@ -61,6 +61,7 @@ def delete_hold(tree, record):
     tpsql.soft_delete_hold(hold)
     clear_hold_entries()
     refresh_treeview(tree, tpd.Hold)
+
 
 # hold function end region------------------------------
 
@@ -133,7 +134,7 @@ def write_bookings_entries(values):
     entry_bookings_bane_id.insert(0, values[3])
 
 
-def edit_bookings(event,tree):
+def edit_bookings(event, tree):
     index_selected = tree.focus()
     values = tree.item(index_selected, "values")
     clear_bookings_entries()
@@ -146,7 +147,7 @@ def create_bookings(tree, record):
     already_booked = tpf.capacity_available(tpsql.get_record(tpd.Bane, bookings.bane_id), bookings.dato, tpsql.get_record(tpd.Hold, bookings.hold_id))
     print(already_booked)
     capacity_ok = True
-    if not already_booked: # passes if true
+    if not already_booked:  # passes if true
         print("Allerede booked true")
         if capacity_ok:
             print("Kapacitet okay true")
@@ -171,6 +172,7 @@ def refresh_treeview(tree, class_):
 
 def empty_treeview(tree):
     tree.delete(*tree.get_children())
+
 
 # Slut Funktions Region
 
@@ -198,15 +200,15 @@ tree_hold = ttk.Treeview(tree_frame_hold, yscrollcommand=tree_scroll_hold.set, s
 tree_hold.grid(row=0, column=0, padx=0, pady=pady)
 tree_scroll_hold.config(command=tree_hold.yview)
 
-tree_hold["columns"] = ("id", "erfaring", "storelse")
+tree_hold["columns"] = ("Id", "Erfaring", "Størelse")
 tree_hold.column("#0", width=0, stretch=tk.NO)
-tree_hold.column("id", anchor=tk.E, width=40)
-tree_hold.column("erfaring", anchor=tk.E, width=200)
-tree_hold.column("storelse", anchor=tk.W, width=120)
+tree_hold.column("Id", anchor=tk.E, width=40)
+tree_hold.column("Erfaring", anchor=tk.E, width=200)
+tree_hold.column("Størelse", anchor=tk.W, width=120)
 tree_hold.heading("#0", text="", anchor=tk.W)
-tree_hold.heading("id", text="id", anchor=tk.CENTER)
-tree_hold.heading("erfaring", text="erfaring", anchor=tk.CENTER)
-tree_hold.heading("storelse", text="storelse", anchor=tk.CENTER)
+tree_hold.heading("Id", text="Id", anchor=tk.CENTER)
+tree_hold.heading("Erfaring", text="Erfaring", anchor=tk.CENTER)
+tree_hold.heading("Størelse", text="Størelse", anchor=tk.CENTER)
 tree_hold.tag_configure('oddrow', background=oddrow)
 tree_hold.tag_configure('evenrow', background=evenrow)
 
@@ -241,16 +243,16 @@ entry_hold_storelse = tk.Entry(edit_frame_hold, width=10, justify="right")
 entry_hold_storelse.grid(row=1, column=2, padx=padx, pady=pady)
 
 # Buttons
-button_create_hold = tk.Button(button_frame_hold, text="Create", command=lambda: create_hold(tree_hold, read_hold_entries()))
+button_create_hold = tk.Button(button_frame_hold, text="Create", highlightthickness=1, border=1, command=lambda: create_hold(tree_hold, read_hold_entries()))
 button_create_hold.grid(row=0, column=0, padx=padx, pady=pady)
 
-button_update_hold = tk.Button(button_frame_hold, text="Update", command=lambda: update_hold(tree_hold, read_hold_entries()))
+button_update_hold = tk.Button(button_frame_hold, text="Update", highlightthickness=1, border=1, command=lambda: update_hold(tree_hold, read_hold_entries()))
 button_update_hold.grid(row=0, column=1, padx=padx, pady=pady)
 
-button_delete_hold = tk.Button(button_frame_hold, text="Delete", command=lambda: delete_hold(tree_hold, read_hold_entries()))
+button_delete_hold = tk.Button(button_frame_hold, text="Delete", highlightthickness=1, border=1, command=lambda: delete_hold(tree_hold, read_hold_entries()))
 button_delete_hold.grid(row=0, column=2, padx=padx, pady=pady)
 
-button_clear_entries_hold = tk.Button(button_frame_hold, text="Clear entries", command=clear_hold_entries)
+button_clear_entries_hold = tk.Button(button_frame_hold, text="Clear Entries", highlightthickness=1, border=1, command=clear_hold_entries)
 button_clear_entries_hold.grid(row=0, column=3, padx=padx, pady=padx)
 
 # hold slut region
@@ -269,15 +271,15 @@ tree_bane = ttk.Treeview(tree_frame_bane, yscrollcommand=tree_scroll_bane.set, s
 tree_bane.grid(row=0, column=0, padx=0, pady=pady)
 tree_scroll_bane.config(command=tree_bane.yview)
 
-tree_bane["columns"] = ("id", "kapacitet", "sverhedsgrad")
+tree_bane["columns"] = ("Id", "Kapacitet", "Sværhedsgrad")
 tree_bane.column("#0", width=0, stretch=tk.NO)
-tree_bane.column("id", anchor=tk.E, width=40)
-tree_bane.column("kapacitet", anchor=tk.E, width=200)
-tree_bane.column("sverhedsgrad", anchor=tk.W, width=120)
+tree_bane.column("Id", anchor=tk.E, width=40)
+tree_bane.column("Kapacitet", anchor=tk.E, width=200)
+tree_bane.column("Sværhedsgrad", anchor=tk.W, width=120)
 tree_bane.heading("#0", text="", anchor=tk.W)
-tree_bane.heading("id", text="id", anchor=tk.CENTER)
-tree_bane.heading("kapacitet", text="kapacitet", anchor=tk.CENTER)
-tree_bane.heading("sverhedsgrad", text="sverhedsgrad", anchor=tk.CENTER)
+tree_bane.heading("Id", text="Id", anchor=tk.CENTER)
+tree_bane.heading("Kapacitet", text="Kapacitet", anchor=tk.CENTER)
+tree_bane.heading("Sværhedsgrad", text="Sværhedsgrad", anchor=tk.CENTER)
 
 tree_bane.tag_configure("oddrow", background=oddrow)
 tree_bane.tag_configure("evenrow", background=evenrow)
@@ -318,7 +320,7 @@ button_update_bane = tk.Button(button_frame_bane, text="Update", command=lambda:
 button_update_bane.grid(row=0, column=2, padx=padx, pady=pady)
 button_delete_bane = tk.Button(button_frame_bane, text="Delete", command=lambda: delete_bane(tree_bane, read_bane_entries()))
 button_delete_bane.grid(row=0, column=3, padx=padx, pady=pady)
-button_clear_bane_entries = tk.Button(button_frame_bane, text="Clear Entry Boxes", command=clear_bane_entries)
+button_clear_bane_entries = tk.Button(button_frame_bane, text="Clear Entries", command=clear_bane_entries)
 button_clear_bane_entries.grid(row=0, column=4, padx=padx, pady=pady)
 
 # bane end region
@@ -326,7 +328,6 @@ button_clear_bane_entries.grid(row=0, column=4, padx=padx, pady=pady)
 # Bookings Start Region
 frame_bookings = tk.LabelFrame(root, text="Bookings")
 frame_bookings.grid(row=0, column=3, padx=padx, pady=pady, sticky=tk.N)
-
 
 tree_frame_bookings = tk.Frame(frame_bookings)
 tree_frame_bookings.grid(row=0, column=0, padx=padx, pady=pady)
@@ -386,11 +387,11 @@ button_frame_bookings.grid(row=1, column=0, padx=padx, pady=pady)
 # Define buttons
 button_create_bookings = tk.Button(button_frame_bookings, text="Create", command=lambda: create_bookings(tree_bookings, read_bookings_entries()))
 button_create_bookings.grid(row=0, column=1, padx=padx, pady=pady)
-button_update_bookings = tk.Button(button_frame_bookings, text="Update", command=lambda: update_bookings(tree_bookings, read_bookings_entries()))
+button_update_bookings = tk.Button(button_frame_bookings, text="Update", command=lambda: (tree_bookings, read_bookings_entries()))
 button_update_bookings.grid(row=0, column=2, padx=padx, pady=pady)
-button_delete_bookings = tk.Button(button_frame_bookings, text="Delete", command=lambda: button_delete(tree_bookings, read_bookings_entries()))
+button_delete_bookings = tk.Button(button_frame_bookings, text="Delete", command=lambda: (tree_bookings, read_bookings_entries()))
 button_delete_bookings.grid(row=0, column=3, padx=padx, pady=pady)
-button_clear_bookings_entries = tk.Button(button_frame_bookings, text="Clear Entry Boxes", command=clear_bookings_entries)
+button_clear_bookings_entries = tk.Button(button_frame_bookings, text="Clear Entries", command=clear_bookings_entries)
 button_clear_bookings_entries.grid(row=0, column=4, padx=padx, pady=pady)
 # Gui Design Slut
 

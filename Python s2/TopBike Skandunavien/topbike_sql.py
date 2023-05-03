@@ -22,10 +22,10 @@ def create_test_data():
         new_items.append(Hold(erfaring=1, storelse=6))
         new_items.append(Bane(kapacitet=12, sverhedsgrad=2))
         new_items.append(Bane(kapacitet=26, sverhedsgrad=1))
-        # a_date = date(day=10, month=12, year=2022)
-        # new_items.append(Bookings(Dato=a_date, hold_id=1, bane_id=2))
-        # a_date = date(day=30, month=4, year=2023)
-        # new_items.append(Bookings(Dato=a_date, hold_id=2, bane_id=1))
+        a_date = date(day=10, month=12, year=2022)
+        new_items.append(Bookings(dato=a_date, hold_id=1, bane_id=2))
+        a_date1 = date(day=30, month=4, year=2023)
+        new_items.append(Bookings(dato=a_date1, hold_id=2, bane_id=1))
         session.add_all(new_items)
         session.commit()
 
@@ -65,7 +65,7 @@ def update_hold(hold):
 
 def soft_delete_hold(hold):
     with Session(engine) as session:
-        session.execute(update(Hold).where(Hold.id == hold.id).values(erfaring="deleted", storelse=hold.storelse))
+        session.execute(update(Hold).where(Hold.id == hold.id).values(erfaring="slettet", storelse=hold.storelse))
         session.commit()
 
 
