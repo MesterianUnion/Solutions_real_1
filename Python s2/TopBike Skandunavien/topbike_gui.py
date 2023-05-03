@@ -314,13 +314,13 @@ button_frame_bane = tk.Frame(controls_frame_bane)
 button_frame_bane.grid(row=1, column=0, padx=padx, pady=pady)
 
 # Difine Buttons
-button_create_bane = tk.Button(button_frame_bane, text="Create", command=lambda: create_bane(tree_bane, read_bane_entries()))
+button_create_bane = tk.Button(button_frame_bane, text="Create", highlightthickness=1, border=1, command=lambda: create_bane(tree_bane, read_bane_entries()))
 button_create_bane.grid(row=0, column=1, padx=padx, pady=pady)
-button_update_bane = tk.Button(button_frame_bane, text="Update", command=lambda: update_bane(tree_bane, read_bane_entries()))
+button_update_bane = tk.Button(button_frame_bane, text="Update", highlightthickness=1, border=1, command=lambda: update_bane(tree_bane, read_bane_entries()))
 button_update_bane.grid(row=0, column=2, padx=padx, pady=pady)
-button_delete_bane = tk.Button(button_frame_bane, text="Delete", command=lambda: delete_bane(tree_bane, read_bane_entries()))
+button_delete_bane = tk.Button(button_frame_bane, text="Delete", highlightthickness=1, border=1, command=lambda: delete_bane(tree_bane, read_bane_entries()))
 button_delete_bane.grid(row=0, column=3, padx=padx, pady=pady)
-button_clear_bane_entries = tk.Button(button_frame_bane, text="Clear Entries", command=clear_bane_entries)
+button_clear_bane_entries = tk.Button(button_frame_bane, text="Clear Entries", highlightthickness=1, border=1, command=clear_bane_entries)
 button_clear_bane_entries.grid(row=0, column=4, padx=padx, pady=pady)
 
 # bane end region
@@ -385,13 +385,13 @@ button_frame_bookings = tk.Frame(controls_frame_bookings)
 button_frame_bookings.grid(row=1, column=0, padx=padx, pady=pady)
 
 # Define buttons
-button_create_bookings = tk.Button(button_frame_bookings, text="Create", command=lambda: create_bookings(tree_bookings, read_bookings_entries()))
+button_create_bookings = tk.Button(button_frame_bookings, text="Create", highlightthickness=1, border=1, command=lambda: create_bookings(tree_bookings, read_bookings_entries()))
 button_create_bookings.grid(row=0, column=1, padx=padx, pady=pady)
-button_update_bookings = tk.Button(button_frame_bookings, text="Update", command=lambda: (tree_bookings, read_bookings_entries()))
+button_update_bookings = tk.Button(button_frame_bookings, text="Update", highlightthickness=1, border=1, command=lambda: (tree_bookings, read_bookings_entries()))
 button_update_bookings.grid(row=0, column=2, padx=padx, pady=pady)
-button_delete_bookings = tk.Button(button_frame_bookings, text="Delete", command=lambda: (tree_bookings, read_bookings_entries()))
+button_delete_bookings = tk.Button(button_frame_bookings, text="Delete", highlightthickness=1, border=1, command=lambda: (tree_bookings, read_bookings_entries()))
 button_delete_bookings.grid(row=0, column=3, padx=padx, pady=pady)
-button_clear_bookings_entries = tk.Button(button_frame_bookings, text="Clear Entries", command=clear_bookings_entries)
+button_clear_bookings_entries = tk.Button(button_frame_bookings, text="Clear Entries", highlightthickness=1, border=1, command=clear_bookings_entries)
 button_clear_bookings_entries.grid(row=0, column=4, padx=padx, pady=pady)
 # Gui Design Slut
 
