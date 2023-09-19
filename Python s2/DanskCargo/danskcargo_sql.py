@@ -107,7 +107,7 @@ def delete_soft_aircraft(aircraft):
 def update_transport(transport):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
     # update a record in the transport table
     with Session(engine) as session:
-        session.execute(update(Transport).where(Transport.id == transport.id).values(date=transport.date, container_id=transport.container_id, aircraft_id=transport.aircraft_id))
+        session.execute(update(Transport).where(Transport.id == transport.id).values(date=transport.dato, container_id=transport.container_id, aircraft_id=transport.aircraft_id))
         session.commit()  # makes changes permanent in database
 
 

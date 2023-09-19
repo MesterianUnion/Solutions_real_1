@@ -18,14 +18,30 @@ class Byttedyr(turtle.Turtle):
 
 class Rovdyr(turtle.Turtle):
 
-    def rotate_prey(self, positions):  # turtle will be turned right <degree> degrees. Use negative values for left turns.
-        degree = 3
-        # print(positions[0][1])
-        return degree
+    def __init__(self):
+        super().__init__()
+        self.prev_prey_position = None
 
-    def rotate_hunter(self, positions):  # turtle will be turned right <degree> degrees. Use negative values for left turns.
-        degree = 0.1
-        return degree
+    def rotate_hunter(self, positions):
+        prey_position = positions[0]
+        if self.prev_prey_position is None:
+            self.prev_prey_position = prey_position
+
+        # Calculate the angle between the current hunter direction and the prey's position
+        current_direction = direction(self, positions[0])
+        angle_to_prey = direction(self, prey_position)
+
+        # Calculate the change in angle needed to align with the prey
+        angle_change = angle_to_prey - current_direction
+
+        # If the prey has moved significantly, adjust the angle to move closer to the new position
+        if distance(self.prev_prey_position, prey_position) > 5:
+            angle_change *= 1.5  # You can adjust this multiplier to make the hunters react faster to prey movements
+
+        self.prev_prey_position = prey_position  # Update the previous prey position
+
+        return angle_change
+
 
 # region do not edit this
 

@@ -119,7 +119,7 @@ def rejser_create_record(record):  # https://docs.sqlalchemy.org/en/14/tutorial/
 def rejser_update_container(rejser):  # https://docs.sqlalchemy.org/en/14/tutorial/orm_data_manipulation.html#orm-enabled-update-statements
     # update a record in the container table
     with Session(engine) as session:
-        session.execute(update(Rejser).where(Rejser.id == rejser.id).values(route=rejser.email, date=rejser.date, seats=rejser.seats))
+        session.execute(update(Rejser).where(Rejser.id == rejser.id).values(route=rejser.route, date=rejser.dato, seats=rejser.seats))
         session.commit()  # makes changes permanent in database
 
 
@@ -133,7 +133,7 @@ def rejser_delete_hard_container(rejser):
 def rejser_delete_soft_container(rejser):
     # soft delete a record in the container table by setting its weight to -1 (see also method "valid" in the container class)
     with Session(engine) as session:
-        session.execute(update(Rejser).where(Rejser.id == rejser.id).values(route='deleted', date=rejser.date, seats=rejser.seats))
+        session.execute(update(Rejser).where(Rejser.id == rejser.id).values(route='deleted', date=rejser.dato, seats=rejser.seats))
         session.commit()  # makes changes permanent in database
 # endregion Rejser
 
@@ -142,11 +142,9 @@ if __name__ == "__main__":  # Executed when invoked directly
     engine = create_engine(Database, echo=False, future=True)  # https://docs.sqlalchemy.org/en/14/tutorial/engine.html   The start of any SQLAlchemy application is an object called the Engine. This object acts as a central source of connections to a particular database, providing both a factory as well as a holding space called a connection pool for these database connections. The engine is typically a global object created just once for a particular database server, and is configured using a URL string which will describe how it should connect to the database host or backend.
     Base.metadata.create_all(engine)
     create_test_data()
-    print(select_all(Kunder))
-    print(get_record(Kunder, 2))
-    rejser_create_test_data()
-    print(rejser_select_all(Rejser))
+    print(get_record(Kunder, 2)
     print(rejser_get_record(Rejser, 2))
+    print(select_all(Kunder))
     # insert_example(engine)
     # select_text(engine)
 else:  # Executed when imported

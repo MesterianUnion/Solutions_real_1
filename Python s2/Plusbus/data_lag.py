@@ -36,7 +36,7 @@ class Rejser(Base):
     seats = Column(String)
 
     def __repr__(self):  # Optional. Only for test purposes.
-        return f"Rejser ({self.id=:4},   {self.route=:6},  {self.date=}, {self.seats=})"
+        return f"Rejser ({self.id=:},   {self.route=:},  {self.date=}, {self.seats=})"
 
     def rejser_convert_to_tuple(self):  # Convert aircraft to tuple
         return self.id, self.route, self.date, self.seats

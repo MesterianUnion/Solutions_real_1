@@ -15,7 +15,7 @@ evenrow = "#DDDDDD"
 
 
 def read_container_entries():  # Read content of entry boxes
-    return entry.get(), entry2.get(), entry3.get(),
+    return entry.get(), entry2.get(), entry3.get()
 
 
 def edit_container(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
@@ -72,8 +72,8 @@ def read_table(tree, class_):  # fill tree from database
 
 
 def refresh_treeview(tree, class_):  # Refresh treeview table
-    rejser_empty_treeview(tree)  # Clear treeview table
-    rejser_read_table(tree, class_)
+    empty_treeview(tree)  # Clear treeview table
+    read_table(tree, class_)
 
 
 def empty_treeview(tree):  # Clear treeview table
@@ -99,6 +99,7 @@ def rejser_write_container_entries(values):  # Fill entry boxes
     entry.insert(0, values[0])
     entry2.insert(0, values[1])
     entry3.insert(0, values[2])
+    entry4.insert(0, values[3])
 
 
 def rejser_create_container(tree, record):  # add new tuple to database
@@ -131,7 +132,7 @@ def rejser_delete_container(tree, record):  # delete tuple in database
 
 def rejser_read_table(tree, class_):  # fill tree from database
     count = 0  # Used to keep track of odd and even rows, because these will be colored differently.
-    result = dcsql.select_all(class_)  # Read all containers from database
+    result = dcsql.rejser_select_all(class_)  # Read all containers from database
     for record in result:
         if record.valid():  # this condition excludes soft deleted records from being shown in the data table
             if count % 2 == 0:  # even
@@ -327,5 +328,6 @@ tree1.tag_configure('evenrow', background=evenrow)
 
 
 if __name__ == '__main__':
+    refresh_treeview(tree1, dcd.Kunder)
     rejser_refresh_treeview(tree1, dcd.Rejser)
     root.mainloop()

@@ -149,8 +149,8 @@ def edit_transport(event, tree):  # Copy selected tuple into entry boxes. Parame
 
 def create_transport(tree, record):  # add new tuple to database
     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
-    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
-    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
+    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
     if destination_ok:
         if capacity_ok:
             dcsql.create_record(transport)  # Update database
@@ -166,8 +166,8 @@ def create_transport(tree, record):  # add new tuple to database
 
 def update_transport(tree, record):  # update tuple in database
     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
-    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
-    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
+    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
     if destination_ok:
         if capacity_ok:
             dcsql.update_transport(transport)  # Update database
