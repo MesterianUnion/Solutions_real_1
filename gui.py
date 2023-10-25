@@ -87,6 +87,7 @@ class BotControlGUI:
             self.answers_tree.delete(item)
 
         # Display data in the Treeview
+        ######
         for answer in answers:
             self.answers_tree.insert("", "end", values=(answer.id, answer.answer, answer.command_used, answer.user, answer.timestamp))
 

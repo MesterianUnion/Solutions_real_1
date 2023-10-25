@@ -190,6 +190,7 @@ def run_discord_bot():
         try:
             # Konverter identifikatoren til små bogstaver for at gøre sammenligningen til ikke at være casesensitiv
             identifikator_små_bogstaver = identifikator.lower()
+            # 
 
             # Tjek om den konverterede identifikator er i de konverterede nøgler fra BRUGERNAVN_TIL_KANAL_ID
             if identifikator_små_bogstaver in {nøgle.lower() for nøgle in BRUGERNAVN_TIL_KANAL_ID.keys()}:
