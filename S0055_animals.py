@@ -12,10 +12,10 @@ Each object of this class shall have the attributes name, sound, height, weight,
 Name and sound are strings. Height and weight are floating point numbers. Legs is a integer. Female is boolean.
 
 Add to the class meaningful methods __init__ and __repr__.
-Call these methods to create objects of the class Animal and to print them out in the main program.
+Call these methods to create objects of the class Animal and to print them out in the main.py program.
 
 Write a class method named make_noise, which prints out the animal's sound in the console.
-Call this method in the main program.
+Call this method in the main.py program.
 
 Define another class Dog, which inherits from Animal.
 Each object of this class shall have the attributes tail_length and hunts_sheep.
@@ -23,21 +23,21 @@ Tail_length is a floating point number. Hunts_sheep is boolean.
 
 Add to the class meaningful methods __init__ and __repr__.
 In writing the constructor of Dog, try to reuse code from the class Animal.
-Call these methods to create objects of the class Dog and to print them out in the main program.
+Call these methods to create objects of the class Dog and to print them out in the main.py program.
 
-Call the method make_noise on Dog objects in the main program.
+Call the method make_noise on Dog objects in the main.py program.
 
 Write a class method named wag_tail for Dog.
 This method prints out into the console something like
 "The dog Snoopy wags its 32cm long tail"
-Call this method in the main program.
+Call this method in the main.py program.
 
 Write a function mate(mother, father). Both parameters are of type Dog.
 This function shall return a new object of type Dog.
 In this function, make meaningful rules for the new dogs attributes.
 Make sure that this function only accepts dogs with the correct sex as arguments.
 
-In the main program, call this method and print out the new dog.
+In the main.py program, call this method and print out the new dog.
 
 When your program is complete, push it to your github repository.
 Then send this Teams message to your teacher: <filename> done

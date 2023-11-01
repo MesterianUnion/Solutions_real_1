@@ -4,6 +4,7 @@ from tkinter import messagebox
 import danskcargo_data as dcd
 import danskcargo_sql as dcsql
 import danskcargo_func as dcf
+import weather
 
 # region global constants
 padx = 8  # Horizontal distance to neighboring objects
@@ -14,6 +15,7 @@ treeview_foreground = "black"  # color of foreground in treeview
 treeview_selected = "#206030"  # color of selected row in treeview
 oddrow = "#dddddd"  # color of odd row in treeview
 evenrow = "#cccccc"  # color of even row in treeview
+INTERNAL_ERROR_CODE = 0
 # endregion global constants
 
 
@@ -33,9 +35,10 @@ def write_container_entries(values):  # Fill entry boxes
     entry_container_id.insert(0, values[0])
     entry_container_weight.insert(0, values[1])
     entry_container_destination.insert(0, values[2])
+    entry_container_weather.insert(0, weather.weather_now(entry_container_destination.get()))
 
 
-def edit_container(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+def edit_container(_, tree):  # Copy selected tuple into entry boxes. First parameter is mandatory but we don't use it.
     index_selected = tree.focus()  # Index of selected tuple
     values = tree.item(index_selected, 'values')  # Values of selected tuple
     clear_container_entries()  # Clear entry boxes
@@ -63,9 +66,9 @@ def delete_container(tree, record):  # delete tuple in database
     refresh_treeview(tree, dcd.Container)  # Refresh treeview table
 
 
-# def copy_container_id(event):  #
-#     entry_transport_container_id.delete(0, tk.END)
-#     entry_transport_container_id.insert(0, entry_container_id.get())
+def copy_container_id(_):
+    entry_transport_container_id.delete(0, tk.END)
+    entry_transport_container_id.insert(0, entry_container_id.get())
 # endregion container functions
 
 
@@ -86,11 +89,16 @@ def write_aircraft_entries(values):  # Fill entry boxes
     entry_aircraft_registration.insert(0, values[2])
 
 
-def edit_aircraft(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+def edit_aircraft(_, tree):  # Copy selected tuple into entry boxes. First parameter is mandatory but we don't use it.
     index_selected = tree.focus()  # Index of selected tuple
     values = tree.item(index_selected, 'values')  # Values of selected tuple
     clear_aircraft_entries()  # Clear entry boxes
     write_aircraft_entries(values)  # Fill entry boxes
+
+
+def copy_aircraft_id(_):
+    entry_transport_aircraft_id.delete(0, tk.END)
+    entry_transport_aircraft_id.insert(0, entry_aircraft_id.get())
 
 
 def create_aircraft(tree, record):  # add new tuple to database
@@ -112,11 +120,6 @@ def delete_aircraft(tree, record):  # delete tuple in database
     dcsql.delete_soft_aircraft(aircraft)  # Update database
     clear_aircraft_entries()  # Clear entry boxes
     refresh_treeview(tree, dcd.Aircraft)  # Refresh treeview table
-
-
-# def copy_aircraft_id(event):
-#     entry_transport_aircraft_id.delete(0, tk.END)
-#     entry_transport_aircraft_id.insert(0, entry_aircraft_id.get())
 # endregion aircraft functions
 
 
@@ -139,7 +142,7 @@ def write_transport_entries(values):  # Fill entry boxes
     entry_transport_aircraft_id.insert(0, values[3])
 
 
-def edit_transport(event, tree):  # Copy selected tuple into entry boxes. Parameter event is mandatory but we don't use it.
+def edit_transport(_, tree):  # Copy selected tuple into entry boxes. First parameter is mandatory but we don't use it.
     index_selected = tree.focus()  # Index of selected tuple
     values = tree.item(index_selected, 'values')  # Values of selected tuple
     clear_transport_entries()  # Clear entry
@@ -149,16 +152,16 @@ def edit_transport(event, tree):  # Copy selected tuple into entry boxes. Parame
 
 def create_transport(tree, record):  # add new tuple to database
     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
-    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
-    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
+    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
     if destination_ok:
         if capacity_ok:
             dcsql.create_record(transport)  # Update database
             clear_transport_entries()  # Clear entry boxes
             refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
         else:
-            # global INTERNAL_ERROR_CODE
-            # INTERNAL_ERROR_CODE = 1
+            global INTERNAL_ERROR_CODE
+            INTERNAL_ERROR_CODE = 1
             messagebox.showwarning("", "Not enough capacity on aircraft!")
     else:
         messagebox.showwarning("", "Aircraft already has another destination!")
@@ -166,16 +169,16 @@ def create_transport(tree, record):  # add new tuple to database
 
 def update_transport(tree, record):  # update tuple in database
     transport = dcd.Transport.convert_from_tuple(record)  # Convert tuple to Transport
-    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
-    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.dato, dcsql.get_record(dcd.Container, transport.container_id))
+    capacity_ok = dcf.capacity_available(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
+    destination_ok = dcf.max_one_destination(dcsql.get_record(dcd.Aircraft, transport.aircraft_id), transport.date, dcsql.get_record(dcd.Container, transport.container_id))
     if destination_ok:
         if capacity_ok:
             dcsql.update_transport(transport)  # Update database
             clear_transport_entries()  # Clear entry boxes
             refresh_treeview(tree, dcd.Transport)  # Refresh treeview table
         else:
-            # global INTERNAL_ERROR_CODE
-            # INTERNAL_ERROR_CODE = 1
+            global INTERNAL_ERROR_CODE
+            INTERNAL_ERROR_CODE = 1
             messagebox.showwarning("", "Not enough capacity on aircraft!")
     else:
         messagebox.showwarning("", "Aircraft already has another destination!")
@@ -215,6 +218,7 @@ def empty_treeview(tree):  # Clear treeview table
 # region common widgets
 main_window = tk.Tk()  # Define the main.py window
 main_window.title('AspIT S2: DanskCargo')  # Text shown in the top window bar
+# main_window.iconbitmap('AspIT.ico')  # Icon in the upper left corner
 main_window.geometry("1200x500")  # window size
 
 style = ttk.Style()  # Add style
@@ -254,7 +258,7 @@ tree_container.tag_configure('oddrow', background=oddrow)  # Create tags for row
 tree_container.tag_configure('evenrow', background=evenrow)
 
 tree_container.bind("<ButtonRelease-1>", lambda event: edit_container(event, tree_container))  # Define function to be called, when an item is selected.
-# tree_container.bind("<Double-Button-1>", copy_container_id)  # Define function to be called after double click.
+tree_container.bind("<Double-Button-1>", copy_container_id)  # Define function to be called after double click.
 
 # Define Frame which contains labels, entries and buttons
 controls_frame_container = tk.Frame(frame_container)
@@ -327,7 +331,7 @@ tree_aircraft.tag_configure('oddrow', background=oddrow)  # Create tags for rows
 tree_aircraft.tag_configure('evenrow', background=evenrow)
 
 tree_aircraft.bind("<ButtonRelease-1>", lambda event: edit_aircraft(event, tree_aircraft))  # Define function to be called, when an item is selected.
-# tree_aircraft.bind("<Double-Button-1>", copy_aircraft_id)  # Define function to be called after double click.
+tree_aircraft.bind("<Double-Button-1>", copy_aircraft_id)  # Define function to be called after double click.
 
 # Define Frame which contains labels, entries and buttons
 controls_frame_aircraft = tk.Frame(frame_aircraft)
@@ -367,7 +371,7 @@ button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
 # endregion aircraft widgets
 
 
-# region transport widgets
+# regiontransport widgets
 # Define Labelframe which contains all transport related GUI objects (data table, labels, buttons, ...)
 frame_transport = tk.LabelFrame(main_window, text="Transport")  # https://www.tutorialspoint.com/python/tk_labelframe.htm
 frame_transport.grid(row=0, column=2, padx=padx, pady=pady, sticky=tk.N)  # https://www.tutorialspoint.com/python/tk_grid.htm
@@ -438,11 +442,11 @@ button_delete_transport = tk.Button(button_frame_transport, text="Delete", comma
 button_delete_transport.grid(row=0, column=3, padx=padx, pady=pady)
 button_clear_boxes = tk.Button(button_frame_transport, text="Clear Entry Boxes", command=clear_transport_entries)
 button_clear_boxes.grid(row=0, column=4, padx=padx, pady=pady)
-# endregion transport widgets
+# endregiontransport widgets
 
 
 if __name__ == "__main__":  # Executed when invoked directly. We use this so main_window.mainloop() does not keep our unit tests from running.
     refresh_treeview(tree_container, dcd.Container)  # Load data from database
     refresh_treeview(tree_aircraft, dcd.Aircraft)  # Load data from database
     refresh_treeview(tree_transport, dcd.Transport)  # Load data from database
-    main_window.mainloop()
+    main_window.mainloop()  # Wait for button clicks and act upon them

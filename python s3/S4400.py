@@ -27,6 +27,7 @@ weather_translation = {
 }
 
 
+
 def translate_weather_description(english_description):
     return weather_translation.get(english_description, english_description)
 
@@ -41,14 +42,14 @@ def weather_now(city, key=KEY):
     weather = json.loads(response.text)  # https://www.w3schools.com/python/python_json.asp  Deserialize json into a hierarchy of dictionaries and lists
     # print(f'{weather=}')
     # print(f'{weather["weather"]=}')
-    # print(f'{weather["weather"][0]["main"]=}')
-    # print(f'{int(weather["main"]["temp"])=}')
+    # print(f'{weather["weather"][0]["main.py"]=}')
+    # print(f'{int(weather["main.py"]["temp"])=}')
     if weather["cod"] == 404:
         return "Kunne ikke finde nogle værdier der matcher!"
     elif weather["cod"] == 200:
-        english_description = weather["weather"][0]["main"]
+        english_description = weather["weather"][0]["main.py"]
         danish_description = translate_weather_description(english_description)
-        weather_report = danish_description + ", " + str(int(weather["main"]["temp"])) + "°C"
+        weather_report = danish_description + ", " + str(weather["main.py"]["temp"]) + "°C"
         return weather_report
     else:
         return f'Kunne ikke finde en by ved navn: {city}.'

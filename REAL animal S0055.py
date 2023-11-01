@@ -75,24 +75,32 @@ def hetro_sex(far, mor):
 
 
 def homo_sex(far_h, far_h1):
-    if far_h.sex == "dreng" and far_h1.sex == "dreng":
-        return Hund("Adopteret Hvalp", 1, "dreng")
+    genders = ["adopteret_pige", "adopteret_dreng", "adopteret_klement"]
+    choice = random.choice(genders)
+    if choice == "adopteret_pige":
+        return Hund("Adopteret_Hvalp", 0, "pige")
+    elif choice == "adopteret_dreng":
+        return Hund("Adopteret_Hvalp", 0, "dreng")
+    elif choice == "adopteret_klement":
+        return Hund("Klement", 0, "klement_køn")
     else:
-        print("Fejl-kode-711")
+        print("Fejl-kode-85")
 
 
-def outcome_pige(far, mor):
+def outcome_random(far, mor):
     genders = ["pige", "dreng"]
-    chosen_gender = random.choice(genders)
-    if far.sex == "dreng" and mor.sex == "pige":
-        return Hund("Hvalp", 0, chosen_gender)
+    choice = random.choice(genders)
+    if choice == "pige":
+        return Hund("Hvalp", 0, "pige")
+    elif choice == "dreng":
+        return Hund("Hvalp", 0, "dreng")
     else:
         return f"Fejl-kode-616 \nTjek venligst om din funktion: def outcome_pige(far, mor): \nOg tjek om Køn FX. far.sex == dreng, \neller Def: Er skrivet rigtigt"
 
-
-def outcome_dreng(far, mor):
-    if far.sex == "dreng" and mor.sex == "pige":
-        return Hund("Hvalp", 0, "dreng")
+#
+# def outcome_dreng(far, mor):
+#     if far.sex == "dreng" and mor.sex == "pige":
+#         return Hund("Hvalp", 0, "dreng")
 
 
 mor = Hund("Klement", 5, "pige")
@@ -112,7 +120,7 @@ print(hetro_sex(far, mor))
 print("")
 print(homo_sex(far_h, far_h1))
 print("")
-print(outcome_pige(far, mor))
+print(outcome_random(mor, far))
 # Prøv print(outcome_pige(far, mor))
 # Og
 # print(outcome_dreng(far, mor))

@@ -61,5 +61,5 @@ for button in buttons:
 style = ttk.Style()
 style.configure('Rounded.TButton', padding=0)
 
-# Start the tkinter main loop
+# Start the tkinter main.py loop
 window.mainloop()
